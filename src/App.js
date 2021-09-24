@@ -1,23 +1,15 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AppBar from "@mui/material/AppBar";
 import "./App.css";
-import { makeStyles } from "@mui/styles";
-import Paper from "@mui/material/Paper";
-
-const useStyles = makeStyles({
-   root: {
-      color: "beige",
-   },
-});
 
 function TabPanel(props) {
    const { children, value, index, ...other } = props;
-
    return (
       <div
          role="tabpanel"
@@ -38,6 +30,31 @@ function TabPanel(props) {
 TabPanel.propTypes = {
    children: PropTypes.node,
    index: PropTypes.number.isRequired,
+   value: PropTypes.number.isRequired,
+};
+
+function SubTabPanel(props) {
+   const { children, value, index, ...other } = props;
+   return (
+      <div
+         role="tabpanel"
+         hidden={value !== index}
+         id={`full-width-tabpanel-${index}`}
+         aria-labelledby={`full-width-tab-${index}`}
+         {...other}
+      >
+         {value === index && (
+            <Box sx={{ p: 3 }}>
+               <Typography>{children}</Typography>
+            </Box>
+         )}
+      </div>
+   );
+}
+SubTabPanel.propTypes = {
+   children: PropTypes.node,
+   index: PropTypes.number.isRequired,
+   value: PropTypes.number.isRequired,
 };
 
 function a11yProps(index) {
@@ -47,94 +64,121 @@ function a11yProps(index) {
    };
 }
 
-export default function App() {
+export default function FullWidthTabs() {
+   const theme = useTheme();
    const [value, setValue] = React.useState();
-   const [display, setDisplay] = React.useState(["none", "none", "none"]);
+   const [subValue, setSubValue] = React.useState();
 
-   const innerBox = () => {
-      const rendered = (
-         <Box
-            sx={{
-               display: { display },
-               justifyContent: "center",
-               flexWrap: "wrap",
-               margin: 5,
-               "& > :not(style)": {
-                  width: 300,
-                  height: 100,
-                  margin: 1,
-               },
-            }}
-         >
-            <Paper elevation={1}>HTML</Paper>
-            <Paper elevation={2}>CSS</Paper>
-            <Paper elevation={3}>Javacript</Paper>
-         </Box>
-      );
-
-      return rendered;
-   };
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
+   const handleChange2 = (event, newValue) => {
+      setSubValue(newValue);
+   };
 
-   function handleToggle(e) {
-      console.log(display[e - 1]);
-      if (display[e] == "none") {
-         setDisplay(["flex", "none", "none"]);
-      } else {
-         setDisplay(["none", "none", "none"]);
-      }
-
-      return 0;
-   }
-
-   const classes = useStyles();
    return (
-      <Box
-         sx={{
-            bgcolor: "grey",
-         }}
-      >
-         <AppBar>
+      <Box sx={{ width: "100%" }}>
+         <AppBar position="static">
             <Tabs
-               centered
+               TabIndicatorProps={{
+                  style: {
+                     background: "#d9ffcc",
+                     height: "100%",
+                     opacity: 0.3,
+                     marginTop: "3px",
+                     marginBottom: "3px",
+                  },
+               }}
+               sx={{
+                  bgcolor: "#0d3300",
+               }}
                value={value}
                onChange={handleChange}
+               textColor="inherit"
                variant="fullWidth"
-               aria-label="full width tabs"
+               aria-label="full width tabs example"
             >
-               <Tab label="Frontend" {...a11yProps(0)} />
-               <Tab label="Backend" {...a11yProps(1)} />
-               <Tab label="DevOps" {...a11yProps(2)} />
-               {/* <Tab label="Item Four" {...a11yProps(3)} />
-               <Tab label="Item Five" {...a11yProps(4)} />
-               <Tab label="Item Six" {...a11yProps(5)} /> */}
+               <Tab
+                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                  label="Frontend"
+                  {...a11yProps(0)}
+               />
+               <Tab
+                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                  label="Backend"
+                  {...a11yProps(1)}
+               />
+               <Tab
+                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                  label="DevOps"
+                  {...a11yProps(2)}
+               />
             </Tabs>
          </AppBar>
 
-         <TabPanel value={value} index={0}>
-            <Box
-               sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  margin: 5,
-                  "& > :not(style)": {
-                     width: 300,
-                     height: 100,
-                     margin: 1,
-                  },
-               }}
-            >
-               <Paper onClick={() => handleToggle(1)} elevation={1}>
-                  <span>HTML</span>
-                  {innerBox(1)}
-               </Paper>
-               <Paper elevation={2}>CSS {innerBox(2)}</Paper>
-               <Paper elevation={3}>Javacript{innerBox(3)}</Paper>
+         <SubTabPanel value={value} index={0}>
+            <Box centered sx={{ bgcolor: "lightblue" }}>
+               <AppBar
+                  position="absolute"
+                  sx={{
+                     marginTop: "48px",
+                  }}
+               >
+                  <Tabs
+                     sx={{ bgcolor: "#0d3300" }}
+                     value={subValue}
+                     TabIndicatorProps={{
+                        style: {
+                           background: "#d9ffcc",
+                           height: "95%",
+                           opacity: 0.2,
+                           marginBottom: "3px",
+                        },
+                     }}
+                     onChange={handleChange2}
+                     indicatorColor="secondary"
+                     textColor="inherit"
+                     variant="fullWidth"
+                     aria-label="full width tabs example"
+                  >
+                     <Tab
+                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                        label="HTML"
+                        {...a11yProps(0)}
+                     />
+                     <Tab
+                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                        label="CSS"
+                        {...a11yProps(1)}
+                     />
+                     <Tab
+                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                        label="Javascript"
+                        {...a11yProps(2)}
+                     />
+                     <Tab
+                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                        label="Versioning"
+                        {...a11yProps(2)}
+                     />
+                     <Tab
+                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                        label="Tooling"
+                        {...a11yProps(2)}
+                     />
+                  </Tabs>
+               </AppBar>
+               <TabPanel value={subValue} index={0}>
+                  one
+               </TabPanel>
+               <TabPanel value={subValue} index={1}>
+                  two
+               </TabPanel>
+               <TabPanel value={subValue} index={2}>
+                  three
+               </TabPanel>
             </Box>
-         </TabPanel>
+         </SubTabPanel>
          <TabPanel value={value} index={1}>
             Item Two
          </TabPanel>

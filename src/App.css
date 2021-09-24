@@ -1,24 +1,9 @@
-.App {
+body {
    text-align: center;
-   background-color: bisque;
-}
-
-.MuiTabs-indicator {
-   background-color: rgb(190, 142, 37) !important;
-}
-
-.MuiBox-root {
-   display: flex;
-}
-
-.MuiPaper-root {
-   background-color: transparent !important;
+   background-color: gray;
 }
 
 .Mui-selected {
-   background-color: rgba(238, 195, 115, 0.562) !important;
-   color: black !important;
-   transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1); /* ease-in-out */
-
-   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); /* ease-in-out */
+   font-weight: bold !important;
+   background-color: black !important;
 }
