@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./App.css";
+import Login from "./Login/Login";
 
 function TabPanel(props) {
    const { children, value, index, ...other } = props;
@@ -77,114 +78,127 @@ export default function FullWidthTabs() {
    };
 
    return (
-      <Box sx={{ width: "100%" }}>
-         <AppBar position="static">
-            <Tabs
-               TabIndicatorProps={{
-                  style: {
-                     background: "#d9ffcc",
-                     height: "100%",
-                     opacity: 0.3,
-                     marginTop: "3px",
-                     marginBottom: "3px",
-                  },
-               }}
-               sx={{
-                  bgcolor: "#0d3300",
-               }}
-               value={value}
-               onChange={handleChange}
-               textColor="inherit"
-               variant="fullWidth"
-               aria-label="full width tabs example"
-            >
-               <Tab
-                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                  label="Frontend"
-                  {...a11yProps(0)}
-               />
-               <Tab
-                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                  label="Backend"
-                  {...a11yProps(1)}
-               />
-               <Tab
-                  sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                  label="DevOps"
-                  {...a11yProps(2)}
-               />
-            </Tabs>
-         </AppBar>
-
-         <SubTabPanel value={value} index={0}>
-            <Box centered sx={{ bgcolor: "lightblue" }}>
-               <AppBar
-                  position="absolute"
-                  sx={{
-                     marginTop: "48px",
+      <>
+         <Login>Login</Login>
+         {/* <Box sx={{ width: "100%" }}>
+            <AppBar position="static">
+               <Tabs
+                  TabIndicatorProps={{
+                     style: {
+                        background: "#d9ffcc",
+                        height: "100%",
+                        opacity: 0.3,
+                        marginTop: "3px",
+                        marginBottom: "3px",
+                     },
                   }}
+                  sx={{
+                     bgcolor: "#0d3300",
+                  }}
+                  value={value}
+                  onChange={handleChange}
+                  textColor="inherit"
+                  variant="fullWidth"
+                  aria-label="full width tabs example"
                >
-                  <Tabs
-                     sx={{ bgcolor: "#0d3300" }}
-                     value={subValue}
-                     TabIndicatorProps={{
-                        style: {
-                           background: "#d9ffcc",
-                           height: "95%",
-                           opacity: 0.2,
-                           marginBottom: "3px",
-                        },
+                  <Tab
+                     sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                     label="Frontend"
+                     {...a11yProps(0)}
+                  />
+                  <Tab
+                     sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                     label="Backend"
+                     {...a11yProps(1)}
+                  />
+                  <Tab
+                     sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
+                     label="DevOps"
+                     {...a11yProps(2)}
+                  />
+               </Tabs>
+            </AppBar>
+
+            <SubTabPanel value={value} index={0}>
+               <Box centered sx={{ bgcolor: "lightblue" }}>
+                  <AppBar
+                     position="absolute"
+                     sx={{
+                        marginTop: "48px",
                      }}
-                     onChange={handleChange2}
-                     indicatorColor="secondary"
-                     textColor="inherit"
-                     variant="fullWidth"
-                     aria-label="full width tabs example"
                   >
-                     <Tab
-                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                        label="HTML"
-                        {...a11yProps(0)}
-                     />
-                     <Tab
-                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                        label="CSS"
-                        {...a11yProps(1)}
-                     />
-                     <Tab
-                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                        label="Javascript"
-                        {...a11yProps(2)}
-                     />
-                     <Tab
-                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                        label="Versioning"
-                        {...a11yProps(2)}
-                     />
-                     <Tab
-                        sx={{ borderRight: "1px solid rgba(255,255,255,0.3)" }}
-                        label="Tooling"
-                        {...a11yProps(2)}
-                     />
-                  </Tabs>
-               </AppBar>
-               <TabPanel value={subValue} index={0}>
-                  one
-               </TabPanel>
-               <TabPanel value={subValue} index={1}>
-                  two
-               </TabPanel>
-               <TabPanel value={subValue} index={2}>
-                  three
-               </TabPanel>
-            </Box>
-         </SubTabPanel>
-         <TabPanel value={value} index={1}>
-            Item Two
-         </TabPanel>
-         <TabPanel value={value} index={2}>
-            Item Three
-         </TabPanel>
-      </Box>
+                     <Tabs
+                        sx={{ bgcolor: "#0d3300" }}
+                        value={subValue}
+                        TabIndicatorProps={{
+                           style: {
+                              background: "#d9ffcc",
+                              height: "95%",
+                              opacity: 0.2,
+                              marginBottom: "3px",
+                           },
+                        }}
+                        onChange={handleChange2}
+                        indicatorColor="secondary"
+                        textColor="inherit"
+                        variant="fullWidth"
+                        aria-label="full width tabs example"
+                     >
+                        <Tab
+                           sx={{
+                              borderRight: "1px solid rgba(255,255,255,0.3)",
+                           }}
+                           label="HTML"
+                           {...a11yProps(0)}
+                        />
+                        <Tab
+                           sx={{
+                              borderRight: "1px solid rgba(255,255,255,0.3)",
+                           }}
+                           label="CSS"
+                           {...a11yProps(1)}
+                        />
+                        <Tab
+                           sx={{
+                              borderRight: "1px solid rgba(255,255,255,0.3)",
+                           }}
+                           label="Javascript"
+                           {...a11yProps(2)}
+                        />
+                        <Tab
+                           sx={{
+                              borderRight: "1px solid rgba(255,255,255,0.3)",
+                           }}
+                           label="Versioning"
+                           {...a11yProps(2)}
+                        />
+                        <Tab
+                           sx={{
+                              borderRight: "1px solid rgba(255,255,255,0.3)",
+                           }}
+                           label="Tooling"
+                           {...a11yProps(2)}
+                        />
+                     </Tabs>
+                  </AppBar>
+                  <TabPanel value={subValue} index={0}>
+                     one
+                  </TabPanel>
+                  <TabPanel value={subValue} index={1}>
+                     two
+                  </TabPanel>
+                  <TabPanel value={subValue} index={2}>
+                     three
+                  </TabPanel>
+               </Box>
+            </SubTabPanel>
+            <TabPanel value={value} index={1}>
+               Item Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+               Item Three
+            </TabPanel>
+         </Box> */}
+      </>
    );
 }
