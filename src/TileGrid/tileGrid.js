@@ -3,6 +3,17 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import SkillSlider from "./skillSlider";
 import { Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
+
+const ContainedColorButton = styled(Button)(() => ({
+	backgroundColor: grey[700],
+	color: "white",
+	"&:hover": {
+		color: "black",
+		backgroundColor: grey[400],
+	},
+}));
 
 export default function TileGrid(props) {
 	const { topics } = props;
@@ -34,7 +45,7 @@ export default function TileGrid(props) {
 				>
 					<p>{topic}</p>
 					<SkillSlider />
-					<Button />
+					<ContainedColorButton>Submit</ContainedColorButton>
 				</Paper>
 			))}
 		</Box>
