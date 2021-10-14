@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./App.css";
+import Login from "./Login/Login";
 
 async function getData() {
 	const axios = require("axios");
