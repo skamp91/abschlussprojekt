@@ -52,13 +52,14 @@ const OutlinedColorButton = styled(Button)(() => ({
 		backgroundColor: lightGreen[200],
 	},
 }));
-function Login(props) {
+
+function SignUp(props) {
 	const [values, setValues] = React.useState({
 		password: "",
 		showPassword: false,
 	});
 
-	const [userNameReg, setUsernameReg] = React.useState("");
+	// const [userNameReg, setUsernameReg] = React.useState("");
 
 	const handleClickShowPassword = () => {
 		setValues({
@@ -67,21 +68,31 @@ function Login(props) {
 		});
 	};
 	const history = useHistory();
+	async function createEmployee() {
+		const axios = require("axios");
 
+		let passedData = {
+			firstname: "Patrick",
+			lastname: "Skamrahl",
+			// last_name: "Skamrahl",
+			mail: "ps@marmalade.group",
+			description: "2test",
+		};
+		await axios
+			.post("http://localhost:8080/api/skillmap/", passedData)
+			.then(
+				(response) => {
+					console.log(response);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		history.push("/skillmap");
+	}
 	return (
 		<div>
 			<Grid container style={{ minHeight: "100vh" }}>
-				<Grid item xs={12} sm={6}>
-					<img
-						src="https://placeimg.com/1000/1000/animals/grayscale"
-						alt="skillMapImage"
-						style={{
-							width: "100%",
-							height: "100%",
-							objectFit: "cover",
-						}}
-					/>
-				</Grid>
 				<Grid
 					container
 					item
@@ -120,7 +131,7 @@ function Login(props) {
 									</InputAdornment>
 								),
 							}}
-							label="Username"
+							label="Choose Username"
 							margin="normal"
 						/>
 						<CssTextField
@@ -147,34 +158,59 @@ function Login(props) {
 								),
 							}}
 							type={values.showPassword ? "text" : "password"}
-							label="Password"
+							label="Choose Password"
 							margin="normal"
 						/>
-
+						<CssTextField
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<LockRounded />
+									</InputAdornment>
+								),
+								endAdornment: (
+									<InputAdornment position="end">
+										<IconButton
+											aria-label="toggle password visibility"
+											onClick={handleClickShowPassword}
+											edge="end"
+										>
+											{values.showPassword ? (
+												<Visibility />
+											) : (
+												<VisibilityOff />
+											)}
+										</IconButton>
+									</InputAdornment>
+								),
+							}}
+							type={values.showPassword ? "text" : "password"}
+							label="Repeat Password"
+							margin="normal"
+						/>
 						<ContainedColorButton
 							style={{ marginBottom: "50px", marginTop: "20px" }}
 							variant="contained"
-							onClick={() => {
-								history.push("/skillmap");
-							}}
-						>
-							Login
-						</ContainedColorButton>
-						<p>Not Registered?? Then Sign In</p>
-						<OutlinedColorButton
-							variant="outlined"
-							style={{ width: "30%", alignSelf: "center" }}
-							onClick={() => {
-								history.push("/signup");
-							}}
+							onClick={() => createEmployee()}
 						>
 							Sign Up
-						</OutlinedColorButton>
+						</ContainedColorButton>
 					</div>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<img
+						src="https://placeimg.com/1000/1000/animals/grayscale"
+						alt="skillMapImage"
+						style={{
+							width: "100%",
+							height: "100%",
+							objectFit: "cover",
+						}}
+					/>
 				</Grid>
 			</Grid>
 		</div>
 	);
 }
 
-export default Login;
+export default SignUp;
